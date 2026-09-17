@@ -1,0 +1,437 @@
+:root{
+  --bg:#F3F5F9;
+  --panel:#ffffff;
+  --border:#E6E9F0;
+  --ink:#1D2030;
+  --muted:#6C7285;
+  --primary:#0FA3A3;
+  --primary-dark:#0C7F7F;
+  --primary-soft:#E3F7F6;
+  --success:#16A34A;
+  --error:#DC2626;
+  --radius:22px;
+  --shadow:0 10px 30px rgba(25,30,60,.07);
+}
+
+*{ box-sizing:border-box; }
+[hidden]{ display:none !important; }
+html{ scroll-behavior:smooth; }
+body{
+  margin:0;
+  min-height:100vh;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Nunito', sans-serif;
+  overflow-x:hidden;
+}
+
+/* ---------- декоративна позадина ---------- */
+.bg-blob{ position:fixed; border-radius:50%; filter:blur(90px); opacity:.14; z-index:0; pointer-events:none; }
+.blob-1{ width:420px; height:420px; background:var(--primary); top:-140px; left:-120px; animation:floatA 18s ease-in-out infinite; }
+.blob-2{ width:360px; height:360px; background:var(--primary); bottom:-140px; right:-110px; animation:floatB 21s ease-in-out infinite; }
+@keyframes floatA{ 0%,100%{ transform:translate(0,0); } 50%{ transform:translate(35px,45px); } }
+@keyframes floatB{ 0%,100%{ transform:translate(0,0); } 50%{ transform:translate(-35px,-30px); } }
+
+/* ---------- основни распоред ---------- */
+.page{
+  position:relative;
+  z-index:1;
+  max-width:1400px;
+  margin:0 auto;
+  padding:20px 24px 16px;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+.app-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+.app-header .seg-btn{ flex:0 0 auto; }
+.layout{
+  display:flex;
+  gap:24px;
+  align-items:stretch;   /* кутија и радни простор исте висине */
+  flex:1 1 auto;         /* заузимају сву преосталу висину екрана */
+  min-height:330px;
+}
+.sidebar{
+  width:352px;
+  flex-shrink:0;
+  display:flex;
+  flex-direction:column;
+}
+.main{ flex-grow:1; min-width:0; display:flex; }
+
+/* ---------- заглавље ---------- */
+h1{
+  font-family:'Baloo 2', sans-serif;
+  font-weight:800;
+  font-size:28px;
+  line-height:1.15;
+  margin:0;
+  padding:0;
+  color:var(--primary-dark);
+  white-space:nowrap;
+}
+
+/* ---------- картице ---------- */
+.card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:16px 18px;
+  box-shadow:var(--shadow);
+}
+.card-title{
+  margin:0;
+  font-family:'Baloo 2', sans-serif;
+  font-size:19px;
+  font-weight:700;
+  color:var(--ink);
+}
+.card-hint{ margin:3px 0 14px; font-size:14px; color:var(--muted); font-weight:600; }
+
+/* ---------- дугмад ---------- */
+.mode-row{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+.mode-row-sub{ margin-bottom:12px; }
+.seg-btn{
+  flex:1 1 auto;
+  font-family:'Nunito', sans-serif;
+  font-size:14px;
+  font-weight:700;
+  padding:9px 16px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:var(--panel);
+  color:var(--muted);
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  transition:background .18s ease, color .18s ease, border-color .18s ease, transform .12s ease;
+}
+.seg-btn:hover{ color:var(--primary-dark); border-color:var(--primary); }
+.seg-btn:active{ transform:scale(.97); }
+.seg-btn.active{
+  background:var(--primary-soft);
+  color:var(--primary-dark);
+  border-color:var(--primary);
+}
+.seg-btn-sm{ font-size:14px; padding:9px 16px; }
+
+.btn-row{ display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; }
+.btn-primary, .btn-secondary{
+  font-family:'Baloo 2', sans-serif;
+  font-size:16px;
+  font-weight:700;
+  padding:11px 21px;
+  border-radius:999px;
+  cursor:pointer;
+  border:1px solid transparent;
+  transition:background .18s ease, color .18s ease, border-color .18s ease, transform .12s ease;
+}
+.btn-primary{ background:var(--primary); color:#fff; box-shadow:0 6px 14px rgba(15,163,163,.25); }
+.btn-primary:hover{ background:var(--primary-dark); }
+.btn-primary:active{ transform:scale(.96); }
+.btn-secondary{ border-color:var(--border); background:var(--panel); color:var(--muted); }
+.btn-secondary:hover{ color:var(--primary-dark); border-color:var(--primary); }
+.btn-secondary:active{ transform:scale(.96); }
+
+.btn-toggle{
+  font-family:'Nunito', sans-serif;
+  font-size:14px;
+  font-weight:700;
+  padding:9px 16px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:var(--panel);
+  color:var(--muted);
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  transition:background .18s ease, color .18s ease, border-color .18s ease, transform .12s ease;
+}
+.btn-toggle:hover{ color:var(--primary-dark); border-color:var(--primary); }
+.btn-toggle:active{ transform:scale(.96); }
+.btn-toggle.active{ background:var(--primary-soft); color:var(--primary-dark); border-color:var(--primary-soft); }
+.btn-small{
+  font-family:'Nunito', sans-serif;
+  font-size:14px;
+  padding:9px 16px;
+  display:inline-flex;
+  align-items:center;
+}
+.btn-icon{ display:inline-flex; align-items:center; margin-right:7px; }
+.btn-icon svg{ display:block; }
+
+/* ---------- задатак ---------- */
+.task-text{ margin:0; font-size:19px; font-weight:700; line-height:1.5; }
+.target-badge, .num-badge{
+  display:inline-flex; align-items:center; justify-content:center;
+  min-width:32px; height:32px; padding:0 9px; margin:0 2px;
+  border-radius:999px; font-weight:800; font-size:17px; vertical-align:middle;
+}
+.target-badge{ background:var(--primary); color:#fff; }
+.num-badge{ background:var(--primary-soft); color:var(--primary-dark); font-size:15px; min-width:28px; height:28px; }
+
+.stat-row{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:10px; flex-wrap:wrap; margin-top:12px;
+  padding-top:12px; border-top:1px solid var(--border);
+}
+.stat{ font-size:16px; font-weight:700; color:var(--muted); }
+.stat strong{ color:var(--ink); font-size:19px; }
+.stat-pill{
+  background:var(--primary-soft);
+  color:var(--primary-dark);
+  padding:6px 13px;
+  border-radius:999px;
+  font-weight:800;
+  font-size:14px;
+}
+
+.feedback{ margin:6px 0 0; font-size:16px; font-weight:800; line-height:1.45; }
+.fb-success{ color:var(--success); }
+.fb-error{ color:var(--error); }
+.pop{ animation:popBounce .4s cubic-bezier(.34,1.56,.64,1); }
+@keyframes popBounce{ 0%{ transform:scale(.7); opacity:0; } 60%{ transform:scale(1.1); opacity:1; } 100%{ transform:scale(1); } }
+.shake{ animation:shake .45s ease; }
+@keyframes shake{
+  10%,90%{ transform:translateX(-2px); }
+  20%,80%{ transform:translateX(4px); }
+  30%,50%,70%{ transform:translateX(-7px); }
+  40%,60%{ transform:translateX(7px); }
+}
+
+/* ---------- дати штапићи (одузимање) ---------- */
+.given-panel{
+  margin-top:12px;
+  padding:10px 12px;
+  border-radius:16px;
+  background:#F7F9FC;
+  border:1px solid var(--border);
+}
+.given-label{
+  display:inline-block;
+  margin:0 0 8px;
+  font-size:12px;
+  color:var(--primary-dark);
+  font-weight:800;
+  background:var(--primary-soft);
+  padding:4px 11px;
+  border-radius:999px;
+}
+.given-rods{ position:relative; height:58px; width:290px; }
+.given-rod{ position:absolute; left:0; font-size:14px; }
+
+/* ---------- изглед штапића (заједнички) ---------- */
+.rod-tile, .rod, .given-rod, .spawn-ghost{
+  border-radius:7px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:800;
+  color:#fff;
+  text-shadow:0 1px 2px rgba(0,0,0,.5);
+  user-select:none;
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,.34),
+    inset 0 -3px 0 rgba(0,0,0,.16),
+    0 2px 5px rgba(20,25,45,.18);
+}
+
+/* ---------- кутија са штапићима ---------- */
+.palette-card{
+  flex:1 1 auto;
+  min-height:0;
+  display:flex;
+  flex-direction:column;
+  box-shadow:none;          /* без сенке */
+  border-radius:24px;
+}
+.palette{
+  flex:1 1 auto;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:flex-start;   /* штапићи одмах испод наслова, збијено */
+  gap:7px;
+}
+
+/* трака са задатком — преко целог екрана у заглављу; кад се појави,
+   и кутија и радни простор клизну надоле за исту висину */
+.task-bar{
+  display:flex;
+  align-items:center;
+  gap:16px 24px;
+  flex-wrap:wrap;
+  margin-bottom:16px;
+  /* иста висина за сабирање и одузимање, да ни промена врсте задатка
+     не помера кутију и радни простор */
+  min-height:144px;
+  border-color:var(--primary-soft);
+  box-shadow:0 10px 30px rgba(15,163,163,.12);
+}
+.task-bar .mode-row-sub{ margin-bottom:0; flex:0 0 auto; }
+.task-bar .seg-btn{ flex:0 0 auto; }
+.task-bar-text{ flex:0 1 auto; min-width:200px; }
+.task-bar-side{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  flex-wrap:wrap;
+  margin-left:auto;
+}
+.task-bar .stat-row{ margin-top:0; padding-top:0; border-top:none; gap:14px; }
+.task-bar .btn-row{ margin-top:0; }
+.task-bar .given-panel{ margin-top:0; flex:0 0 auto; }
+.rod-tile{
+  height:26px;
+  min-width:26px;
+  font-size:13px;
+  cursor:pointer;
+  touch-action:none;
+  transition:transform .12s ease, filter .12s ease;
+}
+.rod-tile:hover{ transform:translateX(3px); filter:brightness(1.07); }
+.rod-tile:active{ transform:scale(.96); }
+.rod-tile:focus-visible{ outline:3px solid var(--primary); outline-offset:3px; }
+.spawn-ghost{ position:fixed; z-index:9999; pointer-events:none; opacity:.92; font-size:13px; }
+
+/* ---------- радни простор ---------- */
+.workspace-toolbar{
+  display:flex;
+  padding:0 0 0 0;   /* натпис поравнат тачно са левом ивицом кутије */
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-bottom:12px;
+}
+.workspace-actions{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-left:auto; }
+.workspace-caption{ margin:0; font-size:16px; font-weight:700; color:var(--muted); }
+.workspace-caption strong{ color:var(--ink); font-size:19px; }
+
+.workspace{
+  position:relative;
+  flex:1 1 auto;
+  min-height:0;
+  background-color:#FCFDFF;
+  background-image: radial-gradient(circle, #DFE4F1 1.6px, transparent 1.6px);
+  background-size:28px 28px;
+  background-position:14px 14px;
+  border:1px solid var(--border);
+  border-radius:24px;
+  touch-action:none;
+  overflow:hidden;
+  box-shadow:none;
+  transition:background-color .15s ease, border-color .15s ease;
+}
+.workspace.drop-hover{ background-color:var(--primary-soft); border-color:var(--primary); }
+
+.rod{
+  position:absolute;
+  font-size:15px;
+  cursor:grab;
+  touch-action:none;
+  transition:filter .12s ease, box-shadow .12s ease;
+}
+.rod:hover{ filter:brightness(1.06); }
+.rod.dragging{
+  cursor:grabbing;
+  z-index:10;
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,.34),
+    inset 0 -3px 0 rgba(0,0,0,.16),
+    0 12px 22px rgba(20,25,45,.32);
+}
+
+.hint{ font-size:14px; color:var(--muted); margin:10px 0 0; font-weight:600; }
+
+/* ---------- конфете ---------- */
+.confetti-piece{
+  position:fixed; top:-12px; width:9px; height:15px; border-radius:2px;
+  opacity:.95; pointer-events:none; z-index:9999;
+  animation:confettiFall linear forwards;
+}
+@keyframes confettiFall{ to{ transform:translateY(112vh) rotate(760deg); opacity:.25; } }
+
+/* ---------- мањи екрани ---------- */
+@media (max-height: 820px){
+  .page{ padding:14px 20px 12px; }
+  h1{ font-size:25px; }
+  .brand-sub{ font-size:13px; }
+  .app-header{ margin-bottom:10px; }
+  .task-bar{ min-height:120px; padding:12px 16px; margin-bottom:10px; }
+  .given-panel{ padding:8px 10px; }
+  .given-rods{ height:56px; }
+  .workspace-toolbar{ margin-bottom:8px; }
+  .card-title{ font-size:16px; }
+  .card-hint{ margin-bottom:6px; }
+  .palette-card{ padding:12px 16px; }
+  .layout{ min-height:300px; }
+}
+
+@media (max-height: 700px){
+  .rod-tile{ height:20px; min-width:20px; font-size:10.5px; }
+  .palette{ gap:4px; }
+  .layout{ min-height:250px; }
+  .task-bar{ min-height:0; }
+  .card-hint{ display:none; }
+}
+
+/* ---------- таблети и телефони: једна колона ---------- */
+@media (max-width: 1000px){
+  .page{ padding:16px 16px 20px; min-height:0; }
+  h1{ white-space:normal; }
+  .layout{ flex-direction:column; gap:16px; min-height:0; flex:0 0 auto; }
+  .sidebar{ width:100%; }
+  .main{ width:100%; }
+  .task-bar{ min-height:0; gap:12px 18px; }
+  .workspace-toolbar{ padding-left:4px; }
+  .hint{ margin-left:2px; }
+  .task-bar-side{ margin-left:0; }
+  .task-bar-text{ flex:1 1 100%; }
+  .palette-card{ flex:0 0 auto; }
+  .palette{
+    flex-direction:row;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:center;
+    gap:8px 10px;
+  }
+  /* на додиру: тап додаје штапић, а превлачење прста и даље помера страницу */
+  .rod-tile{ touch-action:manipulation; height:26px; min-width:26px; font-size:12px; }
+  .rod-tile:hover{ transform:translateY(-3px); }
+  .workspace{ min-height:52vh; }
+  .card-hint{ display:block; }
+  .hint{ display:block; }
+}
+
+/* ---------- телефони ---------- */
+@media (max-width: 560px){
+  .page{ padding:14px 12px 18px; }
+  h1{ font-size:24px; }
+  .brand-sub{ font-size:13px; }
+  .app-header{ gap:10px; }
+  .app-header .mode-row{ width:100%; }
+  .app-header .seg-btn{ flex:1 1 0; }
+  .card{ padding:14px; border-radius:20px; }
+  .palette-card, .workspace{ border-radius:20px; }
+  .workspace-toolbar{ align-items:flex-start; gap:8px; }
+  .workspace-actions{ width:100%; margin-left:0; }
+  .workspace-actions .btn-toggle, .workspace-actions .btn-secondary{ flex:1 1 0; justify-content:center; }
+  .task-bar .mode-row-sub{ width:100%; }
+  .task-bar .seg-btn-sm{ flex:1 1 0; }
+  .task-bar-side{ width:100%; justify-content:space-between; }
+  .task-bar .btn-row{ flex:1 1 100%; }
+  .task-bar .btn-primary, .task-bar .btn-secondary{ flex:1 1 0; }
+  .given-rods{ width:100%; }
+  .workspace{ min-height:46vh; }
+  .rod-tile{ height:24px; min-width:24px; }
+  .hint{ font-size:12px; }
+}

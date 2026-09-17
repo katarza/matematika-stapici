@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="sr-Cyrl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Математика — штапићи за бројање</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="bg-blob blob-1" aria-hidden="true"></div>
+<div class="bg-blob blob-2" aria-hidden="true"></div>
+
+<div class="page">
+
+  <header class="app-header">
+    <h1>Математика — штапићи за бројање</h1>
+    <div class="mode-row" role="group" aria-label="Режим рада">
+      <button id="modeFreeBtn" class="seg-btn active">Слободна игра</button>
+      <button id="modeExerciseBtn" class="seg-btn">Задаци</button>
+    </div>
+  </header>
+
+  <div id="exercisePanel" class="card task-bar" hidden>
+
+    <div class="mode-row mode-row-sub">
+      <button id="typeAddBtn" class="seg-btn seg-btn-sm active">Сабирање</button>
+      <button id="typeSubBtn" class="seg-btn seg-btn-sm">Одузимање</button>
+    </div>
+
+    <div class="task-bar-text">
+      <p id="taskText" class="task-text"></p>
+      <p id="feedback" class="feedback" hidden></p>
+    </div>
+
+    <div id="givenPanel" class="given-panel" hidden>
+      <p class="given-label">Дато</p>
+      <div id="givenRods" class="given-rods"></div>
+    </div>
+
+    <div class="task-bar-side">
+      <div class="stat-row">
+        <span class="stat">Твој збир: <strong id="sumValue">0</strong></span>
+        <span id="solvedLabel" class="stat stat-pill">Решено: 0</span>
+      </div>
+      <div class="btn-row">
+        <button id="checkBtn" class="btn-primary">Провери</button>
+        <button id="newProblemBtn" class="btn-secondary">Нови задатак</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="workspace-toolbar">
+    <p id="freePanel" class="workspace-caption">Укупно штапића у простору: <strong id="freeTotal">0</strong></p>
+    <div class="workspace-actions">
+      <button id="showNumbersBtn" class="btn-toggle active" type="button" aria-pressed="true">
+        <span class="btn-icon" id="showNumbersIcon"></span>Прикажи бројеве
+      </button>
+      <button id="clearBtn" class="btn-secondary btn-small">
+        <span class="btn-icon" id="clearIcon"></span>Обриши све
+      </button>
+    </div>
+  </div>
+
+  <div class="layout">
+
+    <aside class="sidebar">
+      <div class="card palette-card">
+        <p class="card-title">Кутија са штапићима</p>
+        <p class="card-hint">Кликни или превуци штапић у простор</p>
+        <div id="palette" class="palette"></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div id="workspace" class="workspace"></div>
+    </main>
+
+  </div>
+
+  <p class="hint">Превуци штапић да га помериш · Дупли клик (на додиру дужи притисак) да га уклониш</p>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
