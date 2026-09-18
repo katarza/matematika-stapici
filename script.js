@@ -28,7 +28,7 @@
     given: [],
     target: 0,
     nextId: 1,
-    showNumbers: true,
+    showNumbers: false,
     solved: 0,
     cursorX: 28,
     cursorY: 28
@@ -57,6 +57,40 @@
     givenPanel: document.getElementById('givenPanel'),
     givenRods: document.getElementById('givenRods')
   };
+
+  function rectsOverlap(ax, ay, aw, ah, bx, by, bw, bh){
+    return ax < bx+bw && ax+aw > bx && ay < by+bh && ay+ah > by;
+  }
+
+  function hasCollision(x, y, w, excludeId){
+    return state.rods.some(function(r){
+      if(r.id === excludeId) return false;
+      return rectsOverlap(x, y, w, UNIT, r.x, r.y, r.len*UNIT, UNIT);
+    });
+  }
+
+  function clampToGrid(x, y, w, wsRect){
+    x = Math.max(0, Math.min(x, Math.max(0, wsRect.width - w)));
+    y = Math.max(0, Math.min(y, Math.max(0, wsRect.height - UNIT)));
+    return { x: Math.round(x/UNIT)*UNIT, y: Math.round(y/UNIT)*UNIT };
+  }
+
+  // Тражи најближе слободно место на мрежи ако жељена позиција преклапа неки штапић.
+  function findFreePosition(w, wsRect, prefX, prefY, excludeId){
+    var p = clampToGrid(prefX, prefY, w, wsRect);
+    if(!hasCollision(p.x, p.y, w, excludeId)) return p;
+    var maxRadius = Math.ceil(Math.max(wsRect.width, wsRect.height) / UNIT) + 2;
+    for(var radius = 1; radius <= maxRadius; radius++){
+      for(var dy = -radius; dy <= radius; dy++){
+        for(var dx = -radius; dx <= radius; dx++){
+          if(Math.max(Math.abs(dx), Math.abs(dy)) !== radius) continue;
+          var c = clampToGrid(p.x + dx*UNIT, p.y + dy*UNIT, w, wsRect);
+          if(!hasCollision(c.x, c.y, w, excludeId)) return c;
+        }
+      }
+    }
+    return null;
+  }
 
   function buildPalette(){
     el.palette.innerHTML = '';
@@ -131,13 +165,12 @@
       var wsRect = el.workspace.getBoundingClientRect();
       var x = e.clientX - wsRect.left - w/2;
       var y = e.clientY - wsRect.top - UNIT/2;
-      x = Math.round(x/UNIT)*UNIT;
-      y = Math.round(y/UNIT)*UNIT;
-      x = Math.max(0, Math.min(x, wsRect.width - w));
-      y = Math.max(0, Math.min(y, wsRect.height - UNIT));
-      state.rods.push({id: state.nextId++, len: len, x:x, y:y});
-      renderWorkspace();
-      updateTotals();
+      var pos = findFreePosition(w, wsRect, x, y, null);
+      if(pos){
+        state.rods.push({id: state.nextId++, len: len, x:pos.x, y:pos.y});
+        renderWorkspace();
+        updateTotals();
+      }
     }
     if(spawnDrag.moved){ lastSpawnDragEnd = Date.now(); }
     cleanupSpawn();
@@ -171,12 +204,11 @@
       state.cursorX = UNIT;
       state.cursorY = UNIT;
     }
-    var x = Math.round(state.cursorX / UNIT) * UNIT;
-    var y = Math.round(state.cursorY / UNIT) * UNIT;
-    x = Math.max(0, Math.min(x, Math.max(0, wsRect.width - w)));
-    y = Math.max(0, Math.min(y, Math.max(0, wsRect.height - UNIT)));
-    state.rods.push({id: state.nextId++, len: len, x: x, y: y});
-    state.cursorX = x + w + UNIT;
+    var pos = findFreePosition(w, wsRect, state.cursorX, state.cursorY, null);
+    if(!pos) return;
+    state.rods.push({id: state.nextId++, len: len, x: pos.x, y: pos.y});
+    state.cursorX = pos.x + w + UNIT;
+    state.cursorY = pos.y;
     renderWorkspace();
     updateTotals();
   }
@@ -253,6 +285,7 @@
     ny = Math.round(ny / UNIT) * UNIT;
     nx = Math.max(0, Math.min(nx, wsRect.width - w));
     ny = Math.max(0, Math.min(ny, wsRect.height - UNIT));
+    if(hasCollision(nx, ny, w, rod.id)) return;
     rod.x = nx; rod.y = ny;
     drag.el.style.left = nx + 'px';
     drag.el.style.top = ny + 'px';
@@ -336,12 +369,9 @@
 
   function renderTaskText(){
     if(state.exerciseType === 'sub' && state.given.length === 2){
-      var aText = state.showNumbers ? state.given[0].len : '';
-      var bText = state.showNumbers ? state.given[1].len : '';
-      el.taskText.innerHTML = 'Колико је <span class="num-badge">'+aText+'</span> − <span class="num-badge">'+bText+'</span>?';
+      el.taskText.innerHTML = 'Колико је <span class="num-badge">'+state.given[0].len+'</span> − <span class="num-badge">'+state.given[1].len+'</span>?';
     } else {
-      var tText = state.showNumbers ? state.target : '';
-      el.taskText.innerHTML = 'Сложи штапиће тако да њихов збир буде тачно <span class="target-badge">'+tText+'</span>.';
+      el.taskText.innerHTML = 'Сложи штапиће тако да њихов збир буде тачно <span class="target-badge">'+state.target+'</span>.';
     }
   }
 
