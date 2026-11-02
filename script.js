@@ -2,19 +2,19 @@
   var UNIT = 28; // px po jedinici dužine — 1 = tačno jedan kvadratić mreže, isto svuda
 
   var ROD_META = [
-    {len:1,  bg:'#B5E61D', text:'#4a5a08'},
-    {len:2,  bg:'#FF4757', text:'#ffffff'},
-    {len:3,  bg:'#2ED573', text:'#145c31'},
-    {len:4,  bg:'#FF6FB5', text:'#7a1145'},
-    {len:5,  bg:'#FFD93D', text:'#6b4e00'},
-    {len:6,  bg:'#17C3B2', text:'#ffffff'},
-    {len:7,  bg:'#6C5CE7', text:'#ffffff'},
-    {len:8,  bg:'#FF7F50', text:'#6b2400'},
-    {len:9,  bg:'#3B82F6', text:'#ffffff'},
-    {len:10, bg:'#FF9F1C', text:'#6b3900'}
+    {len:1,  bg:'#C89A61', text:'#4a3415'},
+    {len:2,  bg:'#D32F2F', text:'#ffffff'},
+    {len:3,  bg:'#7CB342', text:'#1f3d0f'},
+    {len:4,  bg:'#E2A0C0', text:'#5c1f3a'},
+    {len:5,  bg:'#E8C547', text:'#5c4400'},
+    {len:6,  bg:'#2E7D4F', text:'#ffffff'},
+    {len:7,  bg:'#232323', text:'#ffffff'},
+    {len:8,  bg:'#5D3A3C', text:'#ffffff'},
+    {len:9,  bg:'#2F5FA8', text:'#ffffff'},
+    {len:10, bg:'#E0632E', text:'#ffffff'}
   ];
 
-  var CONFETTI_COLORS = ['#FF4757','#2ED573','#FFD93D','#3B82F6','#FF9F1C','#6C5CE7','#17C3B2','#FF6FB5'];
+  var CONFETTI_COLORS = ['#D32F2F','#7CB342','#E8C547','#2F5FA8','#E0632E','#2E7D4F','#E2A0C0','#C89A61'];
   var LABEL_COLOR = '#ffffff'; // ista boja brojeva na svim štapićima
 
   var ICON_EYE = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"></path><circle cx="12" cy="12" r="3"></circle></svg>';
